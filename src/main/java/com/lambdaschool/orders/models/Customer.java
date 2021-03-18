@@ -11,6 +11,7 @@ import java.util.List;
 public class Customer
 {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long custcode;
@@ -27,6 +28,15 @@ public class Customer
     private double paymentamt;
     private double outstandingamt;
     private String phone;
+
+    @Transient
+    public boolean hasvalueforopeningamt = false;
+    @Transient
+    public boolean hasvalueforrecieveamt = false;
+    @Transient
+    public boolean hasvalueforpaymentamt = false;
+    @Transient
+    public boolean hasvalueforoutstandingamt = false;
 
     @ManyToOne
     @JoinColumn(name = "agentcode",
@@ -139,6 +149,7 @@ public class Customer
 
     public void setOpeningamt(double openingamt)
     {
+        hasvalueforopeningamt = true;
         this.openingamt = openingamt;
     }
 
@@ -149,12 +160,20 @@ public class Customer
 
     public void setRecieveamt(double recieveamt)
     {
+        hasvalueforrecieveamt = true;
         this.recieveamt = recieveamt;
     }
 
-    public double getPaymentamt() { return  paymentamt; }
+    public double getPaymentamt()
+    {
+        return  paymentamt;
+    }
 
-    public void setPaymentamt(double paymentamt) { this.paymentamt = paymentamt; }
+    public void setPaymentamt(double paymentamt)
+    {
+        hasvalueforpaymentamt = true;
+        this.paymentamt = paymentamt;
+    }
 
     public double getOutstandingamt()
     {
@@ -163,6 +182,7 @@ public class Customer
 
     public void setOutstandingamt(double outstandingamt)
     {
+        hasvalueforoutstandingamt = true;
         this.outstandingamt = outstandingamt;
     }
 
@@ -195,4 +215,6 @@ public class Customer
     {
         this.orders = orders;
     }
+
+
 }

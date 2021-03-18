@@ -9,4 +9,6 @@ public interface CustomersRepository extends CrudRepository<Customer, Long>
 {
 
     List<Customer> findByCustnameContainingIgnoringCase(String custname);
+
+    Customer findFirstByAgent_Agentcode(long agentid);
 }
